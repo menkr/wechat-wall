@@ -1,6 +1,4 @@
-![menkr](http://menkr.com/images/logo.png)
-
-## Wechat Wall
+## ![menkr](http://menkr.com/images/logo.png) Wechat Wall
 
 基于微信公众平台的微信墙后台程序
 
