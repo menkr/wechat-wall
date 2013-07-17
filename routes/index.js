@@ -4,6 +4,8 @@ var wechat = require('wechat'),
 
 var config = require('../config');
 
+console.log(config);
+
 /*
  * 文字路由
  * 只接受文字信息

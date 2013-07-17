@@ -9,7 +9,6 @@
 // @npm: npm install wachat-wall
 
 var express = require('express')
-  , routes = require('./routes')
   , http = require('http')
   , path = require('path');
 
@@ -17,7 +16,7 @@ var app = express();
 var config = require('./config');
 
 // all environments
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || config.port);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 app.use(express.favicon());
@@ -35,8 +34,8 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get(config.url, routes.auth);
-app.post(config.url, routes.index);
+// app.get(config.url, require('./routes/auth'));
+app.post(config.url, require('./routes/index'));
 
 // run 
 http.createServer(app).listen(app.get('port'));

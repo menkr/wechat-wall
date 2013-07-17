@@ -1,5 +1,4 @@
-## Menkr Wechat Wall
-==========
+# Menkr Wechat Wall
 
 基于微信公众平台的微信墙后台程序
 
@@ -13,15 +12,19 @@
 
 #### 使用Git下载
 
-`git clone https://github.com/Menkr/WechatWall.git`
-`cd WechatWall`
-`node app`
+````
+git clone https://github.com/Menkr/WechatWall.git
+cd WechatWall
+node app
+````
 
 #### 使用Npm安装
 
-`npm install wechat-wall`
-`cd node_modules/wechat-wall`
-`node app`
+````
+npm install wechat-wall
+cd node_modules/wechat-wall
+node app
+````
 
 ### 如何配置
 

@@ -5,6 +5,7 @@
 // - `delay` 自动刷新的时间 `(Number)`，默认为 2（表示2分钟）
 
 module.exports = {
+    port: 3000,
     url: '/',
     token: 'keyboardcat123',
     autoRefresh: false,
