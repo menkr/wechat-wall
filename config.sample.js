@@ -6,6 +6,7 @@
 
 module.exports = {
     port: 3000,
+    page: '/wall',
     url: '/',
     token: 'keyboardcat123',
     autoRefresh: false,

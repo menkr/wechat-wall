@@ -37,3 +37,10 @@ exports.save = function(uid,msg,cb) {
     }
   })
 }
+
+// 查询所有的消息
+exports.fetch = function(cb) {
+  msg.find({}).exec(function(msgs){
+    cb(msgs);
+  });
+}

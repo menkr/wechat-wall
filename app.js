@@ -36,6 +36,7 @@ if ('development' == app.get('env')) {
 
 // app.get(config.url, require('./routes/auth'));
 app.post(config.url, require('./routes/index'));
+app.get(config.page, require('./routes/wall'));
 
 // run 
 http.createServer(app).listen(app.get('port'));

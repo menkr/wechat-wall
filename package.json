@@ -14,9 +14,7 @@
     "express": "3.3.1",
     "jade": "*",
     "less-middleware": "*",
-    "async": "*",
     "mongoose": "*",
-    "nodemailer": "*",
     "wechat":"*"
   }
 }
