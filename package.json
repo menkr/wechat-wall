@@ -2,7 +2,6 @@
   "name": "wechat-wall",
   "description": "基于微信公众平台的微信墙后台程序",
   "version": "0.0.1",
-  "private": false,
   "author": "turingou",
   "repository": {
     "type": "git",

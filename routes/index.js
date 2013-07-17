@@ -1,51 +1,44 @@
 var wechat = require('wechat'),
-  user = require('../ctrler/user'),
-  menu = require('../ctrler/menu'),
-  gm = require('../ctrler/gm');
+    user = require('../ctrler/user'),
+    message = require('../ctrler/message');
+
+var config = require('../config');
 
 /*
- * Darkroom 主路由
+ * 文字路由
+ * 只接受文字信息
  */
+var resTpl = [
+  config.event.done,
+  '—— 来自活动『' + config.event.title + '』'
+].join('\n');
 
-module.exports = wechat('keyboardcat123', wechat.text(function(msg, req, res, next) {
+module.exports = wechat(config.token, wechat.text(function(msg, req, res, next) {
 
-  // console.log(msg);
-  // console.log(req.wxsession);
-  console.log('<!-- !!STEP!! -->');
-  console.log(req.wxsession.step);
-
-  // 查询用户状态
-  // 无论如何都要先做一次查询？
+  // 查询数据库中是否已经存了这个用户
   user.query(msg.FromUserName, function(u) {
     if (u) {
-      // 此用户已经注册过一个了
+      // 如果已经注册
       if (!req.wxsession.uid) {
         req.wxsession.uid = u._id;
       }
-      // menu 路由
-      if (req.wxsession.step) {
-        if (req.wxsession.step == 'game') {
-          // 进入游戏场景路由
-          gm[req.wxsession.sc](msg, u, req, res);
-        } else {
-          // 进入特殊路由
-          menu[req.wxsession.step](msg, u, req, res);
-        }
-      } else {
-        // 进入常规路由：主操作界面
-        menu.main(msg, u);
-        res.wait('main');
-      }
+      // 保存这个用户的消息
+      message.save(req.wxsession.uid,msg,function(mid){
+        res.reply(resTpl);
+      });
+
     } else {
-      // 第一次访问
-      // 开始新建用户
+      // 第一次访问,开始新建用户
       user.create({
         FromUserName: msg.FromUserName
       }, function(babyID) {
         req.wxsession.uid = babyID;
-        res.reply('欢迎你，系统已经帮你分配了一个新的身份，想马上开始加入一个darkroom吗？回复『ok』确认')
+        // 保存这个用户的消息
+        message.save(req.wxsession.uid,msg,function(mid){
+          res.reply(resTpl);          
+        });
       })
     }
-  })
-  // res.reply('我不太清楚你想表达的意思是什么，也许试试发一段文字给我？')
+  });
+  
 }))

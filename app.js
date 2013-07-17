@@ -1,15 +1,20 @@
-
-/**
- * Module dependencies.
- */
+//                          __       
+//    ____ ___  ___  ____  / /_______
+//   / __ `__ \/ _ \/ __ \/ //_/ ___/
+//  / / / / / /  __/ / / / ,< / /    
+// /_/ /_/ /_/\___/_/ /_/_/|_/_/     
+//
+// @pkg: menkr app suite for wechat
+// @name: Wechat Wall
+// @npm: npm install wachat-wall
 
 var express = require('express')
   , routes = require('./routes')
-  , user = require('./routes/user')
   , http = require('http')
   , path = require('path');
 
 var app = express();
+var config = require('./config');
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -19,7 +24,7 @@ app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
-app.use(express.cookieParser('your secret here'));
+app.use(express.cookieParser('wechat wall'));
 app.use(express.session());
 app.use(app.router);
 app.use(require('less-middleware')({ src: __dirname + '/public' }));
@@ -30,9 +35,8 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get('/', routes.index);
-app.get('/users', user.list);
+app.get(config.url, routes.auth);
+app.post(config.url, routes.index);
 
-http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
-});
+// run 
+http.createServer(app).listen(app.get('port'));
