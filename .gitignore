@@ -1,2 +1,3 @@
 *.sublime*
 node_*
+*.DS_*
