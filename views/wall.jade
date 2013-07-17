@@ -1,5 +1,7 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  h1 #{config.event.title}
+  - if (msgs && msgs.length > 0)
+    - each msg in msgs
+        h2.msg #{msg.detail.Content}
